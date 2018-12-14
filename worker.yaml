@@ -11,7 +11,12 @@ spec:
     spec:
       containers:
         - name: worker
-          image: gcr.io/visualdb-1046/kubequeue
+          command: ['/bin/bash']
+          args: ['-c', 'celery -A tasks worker --loglevel=info -c 6']
+          image: gcr.io/visualdb-1046/kubequeue-wc
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 8.1
       nodeSelector:
         cloud.google.com/gke-nodepool: workers
