@@ -13,21 +13,24 @@ parser.add_argument('--result-id')
 args = parser.parse_args()
 
 if args.result_id is not None:
-    result = app.GroupResult.restore(args.result_id)
+    group_result = app.GroupResult.restore(args.result_id)
 else:
     job = group([TASK.s(*args) for args in ARGS])
-    result = job.apply_async()
-    result.save()
-    print('Result ID: {}'.format(result.id))
+    group_result = job.apply_async()
+    group_result.save()
+    print('Result ID: {}'.format(group_result.id))
 
 bar = tqdm(total=len(ARGS))
 completed = 0
-while not result.ready():
-    new_completed = result.completed_count()
+while not group_result.ready():
+    new_completed = group_result.completed_count()
     if new_completed > completed:
         bar.update(new_completed - completed)
         completed = new_completed
     else:
         time.sleep(1.0)
+
+outputs = group_result.get()
+print(outputs)
 
 print('Done!')
