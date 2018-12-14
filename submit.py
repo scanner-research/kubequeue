@@ -1,11 +1,12 @@
 from celery import group
-from tasks import foobar, app
+from tasks import app
 import json
 from tqdm import tqdm
 import time
 import argparse
 
-TASK = foobar
+from tasks import add_one
+TASK = add_one
 ARGS = [(i,) for i in range(10)]
 
 parser = argparse.ArgumentParser()

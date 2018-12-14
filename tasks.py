@@ -14,3 +14,7 @@ redis = 'redis://{}'.format(host)
 app = Celery('tasks', broker=redis, backend=redis)
 app.conf.tasks_ack_late = True  # For fault tolerance
 
+@app.task
+def add_one(i):
+    print(i)
+    return i + 1
