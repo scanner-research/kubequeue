@@ -1,6 +1,6 @@
 # kubequeue
 
-0. Install [kubect](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+0. Install [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 1. Add your function to `tasks.py`, see `add_one` for example
 2. Configure `cluster-start.sh` parameters (including CLUSTER_ID)
 3. Configure `IMAGE_NAME` in `image-build.sh` and `worker.yaml`
